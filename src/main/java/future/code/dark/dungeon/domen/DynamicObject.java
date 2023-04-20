@@ -8,6 +8,8 @@ import java.util.List;
 
 public abstract class DynamicObject extends AnimatedObject {
 
+    public boolean checkTP = true;
+
     public DynamicObject(int xPosition, int yPosition, String imagePath, List<String> animatedList) {
         super(xPosition, yPosition, imagePath, animatedList);
     }
@@ -31,6 +33,8 @@ public abstract class DynamicObject extends AnimatedObject {
             xPosition = tmpXPosition;
             yPosition = tmpYPosition;
         }
+
+        this.checkTP = true;
     }
 
     private Boolean isAllowedSurface(int x, int y) {

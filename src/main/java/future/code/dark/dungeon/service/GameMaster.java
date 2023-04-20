@@ -3,13 +3,7 @@ package future.code.dark.dungeon.service;
 import future.code.dark.dungeon.GameFrame;
 import future.code.dark.dungeon.config.Configuration;
 import future.code.dark.dungeon.config.ImageView;
-import future.code.dark.dungeon.domen.Coin;
-import future.code.dark.dungeon.domen.DynamicObject;
-import future.code.dark.dungeon.domen.Enemy;
-import future.code.dark.dungeon.domen.Exit;
-import future.code.dark.dungeon.domen.GameObject;
-import future.code.dark.dungeon.domen.Map;
-import future.code.dark.dungeon.domen.Player;
+import future.code.dark.dungeon.domen.*;
 
 import javax.swing.*;
 import java.awt.Color;
@@ -20,11 +14,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static future.code.dark.dungeon.config.Configuration.COIN_CHARACTER;
-import static future.code.dark.dungeon.config.Configuration.ENEMIES_ACTIVE;
-import static future.code.dark.dungeon.config.Configuration.ENEMY_CHARACTER;
-import static future.code.dark.dungeon.config.Configuration.EXIT_CHARACTER;
-import static future.code.dark.dungeon.config.Configuration.PLAYER_CHARACTER;
+import static future.code.dark.dungeon.config.Configuration.*;
 
 public class GameMaster {
 
@@ -73,6 +63,7 @@ public class GameMaster {
                     case COIN_CHARACTER -> addGameObject.accept(new Coin(j, i));
                     case ENEMY_CHARACTER -> addEnemy.accept(new Enemy(j, i));
                     case PLAYER_CHARACTER -> addGameObject.accept(new Player(j, i));
+                    case PORTAL_CHARACTER -> addGameObject.accept(new Portal(j, i));
                 }
             }
         }
@@ -100,6 +91,23 @@ public class GameMaster {
                 if (ob.getXPosition() == getPlayer().getXPosition() & ob.getYPosition() == getPlayer().getYPosition()) {
                     gameObjects.remove(ob);
                     countReceivedCoins ++;
+                }
+            }
+
+            for(DynamicObject ob: getDynamicObjects()) {
+                List<Portal> portals = getPortals();
+                for(Portal portal: portals) {
+                    if (ob.getXPosition() == portal.getXPosition() & ob.getYPosition() == portal.getYPosition() & ob.checkTP) {
+                        if (portal.equals(portals.get(0))) {
+                            ob.setxPosition(portals.get(1).getXPosition());
+                            ob.setyPosition(portals.get(1).getYPosition());
+                            ob.checkTP = false;
+                        } else {
+                            ob.setxPosition(portals.get(0).getXPosition());
+                            ob.setyPosition(portals.get(0).getYPosition());
+                            ob.checkTP = false;
+                        }
+                    }
                 }
             }
 
@@ -149,6 +157,13 @@ public class GameMaster {
                 .collect(Collectors.toList());
     }
 
+    private List<DynamicObject> getDynamicObjects() {
+        return gameObjects.stream()
+                .filter(gameObject -> gameObject instanceof DynamicObject)
+                .map(gameObject -> (DynamicObject) gameObject)
+                .collect(Collectors.toList());
+    }
+
     private List<GameObject> getExitObject() {
         return gameObjects.stream()
                 .filter(gameObject -> gameObject instanceof Exit)
@@ -158,6 +173,13 @@ public class GameMaster {
     public List<GameObject> getCoinsObjects() {
         return gameObjects.stream()
                 .filter(gameObject -> !(gameObject instanceof DynamicObject) & gameObject instanceof Coin)
+                .collect(Collectors.toList());
+    }
+
+    private List<Portal> getPortals() {
+        return gameObjects.stream()
+                .filter(gameObject -> gameObject instanceof Portal)
+                .map(gameObject -> (Portal) gameObject)
                 .collect(Collectors.toList());
     }
 

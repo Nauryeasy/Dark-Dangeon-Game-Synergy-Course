@@ -17,11 +17,13 @@ public interface Configuration {
     char PLAYER_CHARACTER = 'P';
     char ENEMY_CHARACTER = 'G';
     char COIN_CHARACTER = 'C';
+    char PORTAL_CHARACTER = 'O';
     Integer SPRITE_SIZE = 64;
     String PLAYER_SPRITE = "src/main/resources/assets/hero/tile000.png";
     String GHOST_SPRITE = "src/main/resources/assets/ghost/tile000.png";
     String WALL_SPRITE = "src/main/resources/assets/land/wall.png";
     String LAND_SPRITE = "src/main/resources/assets/land/ground.png";
+    String PORTAL_SPRITE = "src/main/resources/assets/land/portal.png";
     String EXIT_SPRITE = "src/main/resources/assets/land/out.png";
     String COIN_SPRITE = "src/main/resources/assets/land/collectible.png";
     String IMAGE_WIN = "src/main/resources/assets/victory.jpg";
