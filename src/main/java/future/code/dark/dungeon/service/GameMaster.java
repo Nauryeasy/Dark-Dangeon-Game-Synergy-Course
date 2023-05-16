@@ -101,10 +101,12 @@ public class GameMaster {
                         if (portal.equals(portals.get(0))) {
                             ob.setxPosition(portals.get(1).getXPosition());
                             ob.setyPosition(portals.get(1).getYPosition());
+                            portals.get(0).setIsUse();
                             ob.checkTP = false;
                         } else {
                             ob.setxPosition(portals.get(0).getXPosition());
                             ob.setyPosition(portals.get(0).getYPosition());
+                            portals.get(1).setIsUse();
                             ob.checkTP = false;
                         }
                     }

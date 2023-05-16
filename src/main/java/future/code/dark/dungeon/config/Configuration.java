@@ -30,5 +30,6 @@ public interface Configuration {
     String IMAGE_LOSE = "src/main/resources/assets/game_over_screen.jpeg";
     List<String> ANIMATED_PLAYER = Arrays.asList("src/main/resources/assets/hero/tile000.png", "src/main/resources/assets/hero/tile001.png", "src/main/resources/assets/hero/tile002.png", "src/main/resources/assets/hero/tile003.png");
     List<String> ANIMATED_ENEMY = Arrays.asList("src/main/resources/assets/ghost/tile000.png", "src/main/resources/assets/ghost/tile001.png", "src/main/resources/assets/ghost/tile002.png", "src/main/resources/assets/ghost/tile003.png");
-
+    List<String> ANIMATED_PORTAL = Arrays.asList("src/main/resources/assets/land/portal/portal1.png", "src/main/resources/assets/land/portal/portal2.png", "src/main/resources/assets/land/portal/portal3.png", "src/main/resources/assets/land/portal/portal4.png");
+    List<String> ANIMATED_PORTAL_USE = Arrays.asList("src/main/resources/assets/land/portal/portalt1.png", "src/main/resources/assets/land/portal/portalt2.png", "src/main/resources/assets/land/portal/portalt3.png", "src/main/resources/assets/land/portal/portalt4.png");
 }
